@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import {useNavigate} from "react-router-dom";
 import {FormFields, Loader} from "../components/index.js";
 import {preview} from "../assets"
+import {getRandomPrompt} from "../utils/index.js";
 
 const CreatePost = () => {
   const navigate = useNavigate();
@@ -21,12 +22,13 @@ const CreatePost = () => {
 
   }
 
-  const handleChange = () => {
-
+  const handleChange = (e) => {
+    setFrom({...form, [e.target.name]: e.target.value})
   }
 
   const handleSurpriseMe = () => {
-
+    const randomPrompt = getRandomPrompt(form.prompt);
+    setFrom({...form, prompt: randomPrompt})
   }
 
   return (
@@ -89,8 +91,9 @@ const CreatePost = () => {
           <p className="mt-2 text-[#666e75] text-[14px]">
             Once you have created the image yu want, you can share it with others
           </p>
-          <button type="submit" className="mt-3 text-white bg-[#6469ff] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center">
-            {loading? 'Sharing...':'Share with others'}
+          <button type="submit"
+                  className="mt-3 text-white bg-[#6469ff] font-medium rounded-md text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+            {loading ? 'Sharing...' : 'Share with others'}
           </button>
         </div>
       </form>
